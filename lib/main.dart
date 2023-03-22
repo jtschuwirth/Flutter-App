@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'We are not really strangers',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,9 +24,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        scaffoldBackgroundColor: Colors.cyan.shade200,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'We are not really strangers'),
     );
   }
 }
@@ -47,18 +50,48 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class Prompt {
+  final int lvl;
+  final String phrase;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  const Prompt({
+    required this.lvl,
+    required this.phrase,
+  });
+
+  factory Prompt.fromJson(Map<String, dynamic> json) {
+    return Prompt(
+      lvl: json['lvl'],
+      phrase: json['phrase'],
+    );
+  }
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  Prompt _prompt= Prompt.fromJson({"phrase": "", "lvl": 1});
+  List<dynamic> _buffer = [];
+  int _lvl = 1;
+
+  Future changePrompt() async {
+    if (_buffer.length == 0 || _prompt.lvl != _lvl) {
+      final response = await http.get(Uri.parse('https://59fxcxkow4.execute-api.us-east-1.amazonaws.com/dev/icebreakers/phrases?n=31&level=${_lvl}'));
+      if (response.statusCode == 200) {
+        setState(() { _prompt = Prompt.fromJson(jsonDecode(response.body)[0]);});
+        setState(() { _buffer = jsonDecode(response.body).skip(1).map((_) => Prompt.fromJson(_)).toList();});
+      } else {
+        throw Exception('Failed to load new buffer');
+      }
+    } else {
+      setState(() {_prompt = _buffer[0];});
+      List new_buffer = _buffer;
+      new_buffer.removeAt(0);
+      setState(() {_buffer = new_buffer;});
+    }
+      
+  }
+
+  void changeLevel(new_level) {
+    setState(() { _lvl = new_level;});
   }
 
   @override
@@ -73,43 +106,77 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Center(child:Text(widget.title)),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: [
+            SizedBox(width: 0, height: 10),
+            Row(
+              children: [
+                SizedBox(
+                  width: 100.0,
+                  child:ElevatedButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    onPressed: () { changeLevel(1); },
+                    child: Text('lvl 1'),
+                  ),
+                ),
+                SizedBox(width: 10, height: 0),
+                SizedBox(
+                  width: 100.0,
+                  child:ElevatedButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    onPressed: () { changeLevel(2); },
+                    child: Text('lvl 2'),
+                  ),
+                ),
+                SizedBox(width: 10, height: 0),
+                SizedBox(
+                  width: 100.0,
+                  child:ElevatedButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    onPressed: () { changeLevel(3); },
+                    child: Text('lvl 3'),
+                  ),
+                ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.center
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            SizedBox(width: 0, height: 50),
+            Center(child: Text("${_lvl}")),
+            Container(
+              width: 400.0,
+              height: 300.0,
+                child:Card(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child:Center(child: Text(
+                    _prompt.phrase,
+                    textAlign: TextAlign.center)))
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.black,
+                border: Border.all( width: 1)
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+            SizedBox(width: 0, height: 50),
+            ElevatedButton(
+              style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              ),
+                onPressed: () { changePrompt(); },
+                child: Text('New prompt'),
+            ),
+          ]
+        )
+      ));
   }
 }
