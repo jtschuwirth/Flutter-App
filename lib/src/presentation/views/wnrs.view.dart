@@ -4,11 +4,13 @@ import 'package:app/src/data/models/prompt.model.dart';
 class WnrsView extends StatelessWidget {
   final void Function() changePrompt;
   final void Function(int newLevel) changeLevel;
+  final void Function(BuildContext context) onGoToHome;
   final Prompt prompt;
   final int lvl;
 
   const WnrsView(
       {required this.changePrompt,
+      required this.onGoToHome,
       required this.changeLevel,
       required this.prompt,
       required this.lvl,
@@ -85,6 +87,15 @@ class WnrsView extends StatelessWidget {
           changePrompt();
         },
         child: const Text('New prompt'),
+      ),
+      const SizedBox(
+        height: 60,
+      ),
+      Center(
+        child: ElevatedButton(
+          onPressed: () => onGoToHome(context),
+          child: const Text("Home"),
+        ),
       ),
     ]));
   }

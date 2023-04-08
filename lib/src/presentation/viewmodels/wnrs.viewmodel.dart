@@ -1,11 +1,11 @@
 import 'package:app/src/presentation/blocs/wnrs/wnrs.bloc.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.event.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.state.dart';
+import 'package:app/src/presentation/pages/home.page.dart';
 import 'package:app/src/presentation/views/wnrs.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:go_router/go_router.dart';
 
 class WnrsViewModel extends StatefulWidget {
   const WnrsViewModel({super.key});
@@ -32,9 +32,14 @@ class WnrsViewModelState extends State<WnrsViewModel> {
                 context.read<WnrsBloc>().add(WnrsNewLvl(lvl)),
             prompt: state.prompt,
             lvl: state.lvl,
+            onGoToHome: _onGoToHome,
           );
         },
       ),
     );
+  }
+
+  void _onGoToHome(BuildContext context) {
+    GoRouter.of(context).go(HomePage.pathName);
   }
 }

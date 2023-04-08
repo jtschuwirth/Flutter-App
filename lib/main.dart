@@ -1,4 +1,5 @@
 import 'package:app/src/presentation/blocs/wnrs/wnrs.bloc.dart';
+import 'package:app/src/presentation/pages/home.page.dart';
 import 'package:app/src/presentation/pages/wnrs.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,12 @@ final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const HomePage();
+      },
+    ),
+    GoRoute(
+      path: '/wnrs',
       builder: (BuildContext context, GoRouterState state) {
         return const WnrsPage();
       },
@@ -29,11 +36,14 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => WnrsBloc(),
-      child: MaterialApp.router(
-        routerConfig: _router,
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (BuildContext context) => WnrsBloc(),
+          ),
+        ],
+        child: MaterialApp.router(
+          routerConfig: _router,
+        ));
   }
 }
