@@ -1,21 +1,5 @@
 import 'package:flutter/material.dart';
-
-class Prompt {
-  final String phrase;
-  final int lvl;
-
-  Prompt({
-    required this.phrase,
-    required this.lvl,
-  });
-
-  factory Prompt.fromJson(Map<String, dynamic> json) {
-    return Prompt(
-      lvl: json['lvl'],
-      phrase: json['phrase'],
-    );
-  }
-}
+import 'package:app/src/data/models/prompt.model.dart';
 
 class WnrsView extends StatelessWidget {
   final void Function() changePrompt;
