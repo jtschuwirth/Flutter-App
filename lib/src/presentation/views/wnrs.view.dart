@@ -4,13 +4,11 @@ import 'package:app/src/data/models/prompt.model.dart';
 class WnrsView extends StatelessWidget {
   final void Function() changePrompt;
   final void Function(int newLevel) changeLevel;
-  final void Function(BuildContext context) onGoToHome;
   final Prompt prompt;
   final int lvl;
 
   const WnrsView(
       {required this.changePrompt,
-      required this.onGoToHome,
       required this.changeLevel,
       required this.prompt,
       required this.lvl,
@@ -19,6 +17,7 @@ class WnrsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size mediaSize = MediaQuery.of(context).size;
     return Center(
         child: Column(children: [
       const SizedBox(width: 0, height: 10),
@@ -27,12 +26,14 @@ class WnrsView extends StatelessWidget {
           width: 100.0,
           child: ElevatedButton(
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            ),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: lvl == 1
+                    ? MaterialStateProperty.all<Color>(Colors.red)
+                    : MaterialStateProperty.all<Color>(Colors.blue)),
             onPressed: () {
               changeLevel(1);
             },
-            child: const Text('lvl 1'),
+            child: const Text('1'),
           ),
         ),
         const SizedBox(width: 10, height: 0),
@@ -40,12 +41,14 @@ class WnrsView extends StatelessWidget {
           width: 100.0,
           child: ElevatedButton(
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            ),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: lvl == 2
+                    ? MaterialStateProperty.all<Color>(Colors.red)
+                    : MaterialStateProperty.all<Color>(Colors.blue)),
             onPressed: () {
               changeLevel(2);
             },
-            child: const Text('lvl 2'),
+            child: const Text('2'),
           ),
         ),
         const SizedBox(width: 10, height: 0),
@@ -53,20 +56,21 @@ class WnrsView extends StatelessWidget {
           width: 100.0,
           child: ElevatedButton(
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            ),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: lvl == 3
+                    ? MaterialStateProperty.all<Color>(Colors.red)
+                    : MaterialStateProperty.all<Color>(Colors.blue)),
             onPressed: () {
               changeLevel(3);
             },
-            child: const Text('lvl 3'),
+            child: const Text('3'),
           ),
         ),
       ]),
       const SizedBox(width: 0, height: 50),
-      Center(child: Text("$lvl")),
       Container(
-        width: 400.0,
-        height: 300.0,
+        width: mediaSize.width * 0.9,
+        height: 200.0,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.black,
@@ -90,12 +94,6 @@ class WnrsView extends StatelessWidget {
       ),
       const SizedBox(
         height: 60,
-      ),
-      Center(
-        child: ElevatedButton(
-          onPressed: () => onGoToHome(context),
-          child: const Text("Home"),
-        ),
       ),
     ]));
   }

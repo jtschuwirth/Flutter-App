@@ -32,14 +32,9 @@ class WnrsViewModelState extends State<WnrsViewModel> {
                 context.read<WnrsBloc>().add(WnrsNewLvl(lvl)),
             prompt: state.prompt,
             lvl: state.lvl,
-            onGoToHome: _onGoToHome,
           );
         },
       ),
     );
-  }
-
-  void _onGoToHome(BuildContext context) {
-    GoRouter.of(context).go(HomePage.pathName);
   }
 }

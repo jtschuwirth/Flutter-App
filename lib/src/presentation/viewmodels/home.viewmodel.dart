@@ -34,10 +34,10 @@ class HomeViewModelState extends State<HomeViewModel> {
   }
 
   void _onGoToWnrs(context) {
-    GoRouter.of(context).go(WnrsPage.pathName);
+    GoRouter.of(context).push(WnrsPage.pathName);
   }
 
   void _onGoToNhie(context) {
-    // GoRouter.of(context).go(NhiePage.pathName);
+    // GoRouter.of(context).push(NhiePage.pathName);
   }
 }
