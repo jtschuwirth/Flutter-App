@@ -5,6 +5,7 @@ import 'package:app/src/presentation/blocs/dfk/dfk.state.dart';
 import 'package:app/src/presentation/views/dfk/bought_heroes.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class BoughtHeroesViewModel extends StatefulWidget {
   const BoughtHeroesViewModel({super.key});
@@ -34,8 +35,16 @@ class BoughtHeroesViewModelState extends State<BoughtHeroesViewModel> {
           List<HeroBoughtModel> sortedHeroesBought =
               state.heroesBought.where((element) => true).toList();
           sortedHeroesBought.sort((a, b) => a.time.compareTo(b.time));
+          final List<HeroBoughtModel> heroesBoughtToday = state.heroesBought
+              .where((element) =>
+                  DateFormat("dd/MM/yyyy").format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                          int.parse(element.time) * 1000)) ==
+                  DateFormat("dd/MM/yyyy").format(DateTime.now()))
+              .toList();
           return BoughtHeroesView(
             heroesBought: sortedHeroesBought.reversed.toList(),
+            heroesBoughtToday: heroesBoughtToday,
             isLoading: state.isLoading,
           );
         },
