@@ -1,5 +1,8 @@
 class Prompt {
-  const Prompt({required this.phrase, required this.lvl});
+  const Prompt({
+    required this.phrase,
+    required this.lvl,
+  });
 
   final String phrase;
   final int lvl;

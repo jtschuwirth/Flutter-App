@@ -28,7 +28,7 @@ class WnrsView extends StatelessWidget {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 backgroundColor: lvl == 1
-                    ? MaterialStateProperty.all<Color>(Colors.red)
+                    ? MaterialStateProperty.all<Color>(Colors.purple)
                     : MaterialStateProperty.all<Color>(Colors.blue)),
             onPressed: () {
               changeLevel(1);
@@ -43,7 +43,7 @@ class WnrsView extends StatelessWidget {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 backgroundColor: lvl == 2
-                    ? MaterialStateProperty.all<Color>(Colors.red)
+                    ? MaterialStateProperty.all<Color>(Colors.purple)
                     : MaterialStateProperty.all<Color>(Colors.blue)),
             onPressed: () {
               changeLevel(2);
@@ -58,7 +58,7 @@ class WnrsView extends StatelessWidget {
             style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 backgroundColor: lvl == 3
-                    ? MaterialStateProperty.all<Color>(Colors.red)
+                    ? MaterialStateProperty.all<Color>(Colors.purple)
                     : MaterialStateProperty.all<Color>(Colors.blue)),
             onPressed: () {
               changeLevel(3);
@@ -74,7 +74,7 @@ class WnrsView extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.black,
-            border: Border.all(width: 1)),
+            border: Border.all(width: 0.1)),
         child: Card(
             child: Padding(
                 padding:

@@ -23,6 +23,7 @@ class WnrsViewModelState extends State<WnrsViewModel> {
         // the App.build method, and use it to set our appbar title.
         title: const Center(child: Text("We are not really strangers")),
       ),
+      backgroundColor: const Color(0xffde4545),
       body: BlocBuilder<WnrsBloc, WnrsState>(
         builder: (context, state) {
           return WnrsView(

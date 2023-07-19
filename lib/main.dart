@@ -1,4 +1,7 @@
+import 'package:app/src/presentation/blocs/dfk/dfk.bloc.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.bloc.dart';
+import 'package:app/src/presentation/pages/dfk/bought_heroes.page.dart';
+import 'package:app/src/presentation/pages/dfk/main_dfk.page.dart';
 import 'package:app/src/presentation/pages/home.page.dart';
 import 'package:app/src/presentation/pages/wnrs.page.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +26,18 @@ final GoRouter _router = GoRouter(
         return const WnrsPage();
       },
     ),
+    GoRoute(
+      path: '/dfk',
+      builder: (BuildContext context, GoRouterState state) {
+        return const MainDfkPage();
+      },
+    ),
+    GoRoute(
+      path: '/dfk/bought_heroes',
+      builder: (BuildContext context, GoRouterState state) {
+        return const BoughtHeroesPage();
+      },
+    ),
   ],
 );
 
@@ -40,6 +55,9 @@ class MyAppState extends State<MyApp> {
         providers: [
           BlocProvider(
             create: (BuildContext context) => WnrsBloc(),
+          ),
+          BlocProvider(
+            create: (BuildContext context) => DfkBloc(),
           ),
         ],
         child: MaterialApp.router(

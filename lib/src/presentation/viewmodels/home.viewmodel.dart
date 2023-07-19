@@ -1,5 +1,6 @@
 import 'package:app/src/presentation/blocs/wnrs/wnrs.bloc.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.state.dart';
+import 'package:app/src/presentation/pages/dfk/main_dfk.page.dart';
 import 'package:app/src/presentation/pages/wnrs.page.dart';
 import 'package:app/src/presentation/views/home.view.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,15 @@ class HomeViewModelState extends State<HomeViewModel> {
           return HomeView(
             onGoToNhie: _onGoToNhie,
             onGoToWnrs: _onGoToWnrs,
+            onGoToDFK: _onGoToDFK,
           );
         },
       ),
     );
+  }
+
+  void _onGoToDFK(context) {
+    GoRouter.of(context).push(MainDfkPage.pathName);
   }
 
   void _onGoToWnrs(context) {

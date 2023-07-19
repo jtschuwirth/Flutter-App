@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class HomeView extends StatelessWidget {
   final void Function(BuildContext context) onGoToWnrs;
   final void Function(BuildContext context) onGoToNhie;
-  const HomeView(
-      {required this.onGoToWnrs, required this.onGoToNhie, super.key})
-      : super();
+  final void Function(BuildContext context) onGoToDFK;
+  const HomeView({
+    required this.onGoToWnrs,
+    required this.onGoToNhie,
+    required this.onGoToDFK,
+    super.key,
+  }) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,15 @@ class HomeView extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => onGoToNhie(context),
             child: const Text("Never have i ever"),
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: ElevatedButton(
+            onPressed: () => onGoToDFK(context),
+            child: const Text("Defi Kingdoms Stats"),
           ),
         ),
         const SizedBox(
