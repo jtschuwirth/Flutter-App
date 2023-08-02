@@ -1,11 +1,9 @@
 import 'package:app/src/presentation/blocs/wnrs/wnrs.bloc.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.event.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.state.dart';
-import 'package:app/src/presentation/pages/home.page.dart';
 import 'package:app/src/presentation/views/wnrs.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class WnrsViewModel extends StatefulWidget {
   const WnrsViewModel({super.key});

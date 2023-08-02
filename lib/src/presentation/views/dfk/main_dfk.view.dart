@@ -1,11 +1,15 @@
-import 'package:app/src/data/models/hero_bought.model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class MainDfkView extends StatelessWidget {
   final void Function(BuildContext context) onGoToBoughtHeroes;
+  final void Function(BuildContext context) onGoToPayouts;
+  final void Function(BuildContext context) onGoToTrackingData;
+  final void Function(BuildContext context) onGoToAccounts;
   const MainDfkView({
     required this.onGoToBoughtHeroes,
+    required this.onGoToPayouts,
+    required this.onGoToTrackingData,
+    required this.onGoToAccounts,
     super.key,
   }) : super();
 
@@ -28,8 +32,26 @@ class MainDfkView extends StatelessWidget {
         ),
         Center(
           child: ElevatedButton(
-            onPressed: () => onGoToBoughtHeroes(context),
-            child: const Text("Autoplayer Tracking"),
+            onPressed: () => onGoToPayouts(context),
+            child: const Text("Payouts"),
+          ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Center(
+          child: ElevatedButton(
+            onPressed: () => onGoToTrackingData(context),
+            child: const Text("Tracking Data"),
+          ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Center(
+          child: ElevatedButton(
+            onPressed: () => onGoToAccounts(context),
+            child: const Text("Accounts"),
           ),
         ),
       ],
