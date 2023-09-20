@@ -53,6 +53,15 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
               trakingDataByDay[day]!["dailyExpectedAvgProfit"] =
                   trakingDataByDay[day]!["dailyExpectedAvgProfit"]! +
                       double.parse(trackingData.dailyExpectedAvgProfit);
+
+              trakingDataByDay[day]!["dailyAvgGasCost"] =
+                  trakingDataByDay[day]!["dailyAvgGasCost"]! +
+                      double.parse(trackingData.dailyAvgGasCost);
+
+              trakingDataByDay[day]!["uptime"] =
+                  trakingDataByDay[day]!["uptime"]! +
+                      double.parse(trackingData.uptime);
+
               trakingDataByDay[day]!["dataPoints"] =
                   trakingDataByDay[day]!["dataPoints"]! + 1;
             } else {
@@ -61,6 +70,8 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
                     double.parse(trackingData.dailyRealAvgProfit),
                 "dailyExpectedAvgProfit":
                     double.parse(trackingData.dailyExpectedAvgProfit),
+                "dailyAvgGasCost": double.parse(trackingData.dailyAvgGasCost),
+                "uptime": double.parse(trackingData.uptime),
                 "dataPoints": 1
               };
             }

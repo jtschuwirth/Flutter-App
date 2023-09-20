@@ -1,4 +1,3 @@
-
 import 'package:app/src/data/models/tracking_data.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_charts/flutter_charts.dart';
@@ -36,8 +35,23 @@ class TrackingDataView extends StatelessWidget {
                   trackingDataByDay[e]!["dailyExpectedAvgProfit"]! /
                   trackingDataByDay[e]!["dataPoints"]!)
               .toList(),
+          trackingDataByDay.keys
+              .map((e) =>
+                  trackingDataByDay[e]!["dailyAvgGasCost"]! /
+                  trackingDataByDay[e]!["dataPoints"]!)
+              .toList(),
+          trackingDataByDay.keys
+              .map((e) =>
+                  trackingDataByDay[e]!["uptime"]! /
+                  trackingDataByDay[e]!["dataPoints"]!)
+              .toList(),
         ],
-        dataRowsLegends: const ["Real Profit", "Expected Profit"],
+        dataRowsLegends: const [
+          "Real Profit",
+          "Expected Profit",
+          "Gas Cost",
+          "uptime"
+        ],
         xUserLabels: trackingDataByDay.keys.toList(),
         chartOptions: chartOptions,
       );
@@ -67,7 +81,7 @@ class TrackingDataView extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: mediaSize.height * 0.2,
+          height: mediaSize.height * 0.3,
           width: mediaSize.width,
           child: Card(
             color: Colors.white,
@@ -75,7 +89,7 @@ class TrackingDataView extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: mediaSize.height * 0.7,
+          height: mediaSize.height * 0.55,
           child: ListView.builder(
             itemCount: trackingData.length,
             itemBuilder: (context, index) {
@@ -96,6 +110,8 @@ class TrackingDataView extends StatelessWidget {
                               "Daily avg expected profit: ${double.parse(trackingData[index].dailyExpectedAvgProfit).toStringAsFixed(2)} jewel"),
                           Text(
                               "Daily avg real profit: ${double.parse(trackingData[index].dailyRealAvgProfit).toStringAsFixed(2)} jewel"),
+                          Text(
+                              "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
                         ],
                       )),
                 ),

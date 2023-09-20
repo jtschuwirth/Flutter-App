@@ -92,7 +92,7 @@ class BoughtHeroesView extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: mediaSize.height * 0.5,
+          height: mediaSize.height * 0.45,
           child: ListView.builder(
             itemCount: heroesBought.length,
             itemBuilder: (context, index) {

@@ -42,7 +42,7 @@ class AccountsView extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: mediaSize.height * 0.7,
+          height: mediaSize.height * 0.65,
           child: ListView.builder(
             itemCount: accounts.length,
             itemBuilder: (context, index) {
