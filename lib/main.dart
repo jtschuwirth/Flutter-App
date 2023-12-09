@@ -5,6 +5,7 @@ import 'package:app/src/presentation/pages/dfk/bought_heroes.page.dart';
 import 'package:app/src/presentation/pages/dfk/last_payouts.page.dart';
 import 'package:app/src/presentation/pages/dfk/main_dfk.page.dart';
 import 'package:app/src/presentation/pages/dfk/tracking_data.page.dart';
+import 'package:app/src/presentation/pages/dfk/trades.page.dart';
 import 'package:app/src/presentation/pages/home.page.dart';
 import 'package:app/src/presentation/pages/wnrs.page.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,13 @@ final GoRouter _router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return const AccountsPage();
       },
-    )
+    ),
+    GoRoute(
+      path: '/dfk/trades',
+      builder: (BuildContext context, GoRouterState state) {
+        return const TradesPage();
+      },
+    ),
   ],
 );
 

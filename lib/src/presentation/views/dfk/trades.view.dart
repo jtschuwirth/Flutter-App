@@ -1,12 +1,13 @@
-import 'package:app/src/data/models/account.model.dart';
+import 'package:app/src/data/models/trade.model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class AccountsView extends StatelessWidget {
-  final List<AccountModel> accounts;
+class TradesView extends StatelessWidget {
+  final List<TradeModel> trades;
   final bool isLoading;
 
-  const AccountsView({
-    required this.accounts,
+  const TradesView({
+    required this.trades,
     required this.isLoading,
     super.key,
   }) : super();
@@ -14,14 +15,19 @@ class AccountsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size mediaSize = MediaQuery.of(context).size;
+    final double totalProfit = trades.fold<double>(
+        0,
+        (previousValue, element) =>
+            previousValue + double.parse(element.realProfit));
+
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
-    if (accounts.isEmpty) {
+    if (trades.isEmpty) {
       return const Center(
-        child: Text("No Accounts"),
+        child: Text("No Trades"),
       );
     }
     return Column(
@@ -35,7 +41,7 @@ class AccountsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Accounts: ${accounts.length}"),
+                Text("Total earnings: $totalProfit jewel"),
                 const SizedBox(height: 5),
               ],
             )),
@@ -44,18 +50,22 @@ class AccountsView extends StatelessWidget {
         SizedBox(
           height: mediaSize.height * 0.65,
           child: ListView.builder(
-            itemCount: accounts.length,
+            itemCount: trades.length,
             itemBuilder: (context, index) {
               return SizedBox(
                 height: mediaSize.height * 0.18,
                 child: Card(
                   child: ListTile(
-                      title: Text("Address: ${accounts[index].address}"),
+                      title: Text(
+                          "date: ${DateFormat("dd/MM/yyyy HH:mm").format(DateTime.fromMillisecondsSinceEpoch(int.parse(trades[index].time) * 1000))}"),
                       subtitle: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text("Manager: ${accounts[index].manager} "),
-                          Text("Enabled: ${accounts[index].enabled} "),
+                          Text("item: ${trades[index].item}"),
+                          Text("amount: ${trades[index].amount}"),
+                          Text(
+                              "real_profit: ${double.parse(trades[index].realProfit).toStringAsFixed(2)} jewel"),
+                          Text("Strategy: ${trades[index].strategy}")
                         ],
                       )),
                 ),

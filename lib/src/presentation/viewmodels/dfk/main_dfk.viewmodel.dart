@@ -4,6 +4,7 @@ import 'package:app/src/presentation/pages/dfk/accounts.page.dart';
 import 'package:app/src/presentation/pages/dfk/bought_heroes.page.dart';
 import 'package:app/src/presentation/pages/dfk/last_payouts.page.dart';
 import 'package:app/src/presentation/pages/dfk/tracking_data.page.dart';
+import 'package:app/src/presentation/pages/dfk/trades.page.dart';
 import 'package:app/src/presentation/views/dfk/main_dfk.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,10 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
     GoRouter.of(context).push(AccountsPage.pathName);
   }
 
+  void _onGoToTrades(context) {
+    GoRouter.of(context).push(TradesPage.pathName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +54,7 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
             onGoToPayouts: _onGoToPayouts,
             onGoToTrackingData: _onGoToTrackingData,
             onGoToAccounts: _onGoToAccounts,
+            onGoToTrades: _onGoToTrades,
           );
         },
       ),

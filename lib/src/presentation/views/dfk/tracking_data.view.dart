@@ -2,6 +2,8 @@ import 'package:app/src/data/models/tracking_data.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_charts/flutter_charts.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class TrackingDataView extends StatelessWidget {
   final List<TrackingDataModel> trackingData;
@@ -19,53 +21,59 @@ class TrackingDataView extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size mediaSize = MediaQuery.of(context).size;
 
-    Widget chartToRun() {
-      LabelLayoutStrategy? xContainerLabelLayoutStrategy;
-      ChartData chartData;
-      ChartOptions chartOptions = const ChartOptions();
-      chartData = ChartData(
-        dataRows: [
-          trackingDataByDay.keys
-              .map((e) =>
-                  trackingDataByDay[e]!["dailyRealAvgProfit"]! /
-                  trackingDataByDay[e]!["dataPoints"]!)
+    List<LineSeries<MapEntry<String, double>, String>> generateLineSeries() {
+      return [
+        LineSeries<MapEntry<String, double>, String>(
+          dataSource: trackingDataByDay.entries
+              .map((e) => MapEntry(e.key,
+                  e.value["dailyRealAvgProfit"]! / e.value["dataPoints"]!))
               .toList(),
-          trackingDataByDay.keys
-              .map((e) =>
-                  trackingDataByDay[e]!["dailyExpectedAvgProfit"]! /
-                  trackingDataByDay[e]!["dataPoints"]!)
-              .toList(),
-          trackingDataByDay.keys
-              .map((e) =>
-                  trackingDataByDay[e]!["dailyAvgGasCost"]! /
-                  trackingDataByDay[e]!["dataPoints"]!)
-              .toList(),
-          trackingDataByDay.keys
-              .map((e) =>
-                  trackingDataByDay[e]!["uptime"]! /
-                  trackingDataByDay[e]!["dataPoints"]!)
-              .toList(),
-        ],
-        dataRowsLegends: const [
-          "Real Profit",
-          "Expected Profit",
-          "Gas Cost",
-          "uptime"
-        ],
-        xUserLabels: trackingDataByDay.keys.toList(),
-        chartOptions: chartOptions,
-      );
-      var lineChartContainer = LineChartTopContainer(
-        chartData: chartData,
-        xContainerLabelLayoutStrategy: xContainerLabelLayoutStrategy,
-      );
-
-      var lineChart = LineChart(
-        painter: LineChartPainter(
-          lineChartContainer: lineChartContainer,
+          xValueMapper: (MapEntry<String, double> entry, _) => entry.key,
+          yValueMapper: (MapEntry<String, double> entry, _) => entry.value,
+          name: "Real Profit",
+          markerSettings: const MarkerSettings(isVisible: true),
         ),
+        LineSeries<MapEntry<String, double>, String>(
+          dataSource: trackingDataByDay.entries
+              .map((e) => MapEntry(e.key,
+                  e.value["dailyExpectedAvgProfit"]! / e.value["dataPoints"]!))
+              .toList(),
+          xValueMapper: (MapEntry<String, double> entry, _) => entry.key,
+          yValueMapper: (MapEntry<String, double> entry, _) => entry.value,
+          name: "Expected Profit",
+          markerSettings: const MarkerSettings(isVisible: true),
+        ),
+        LineSeries<MapEntry<String, double>, String>(
+          dataSource: trackingDataByDay.entries
+              .map((e) => MapEntry(
+                  e.key, e.value["dailyAvgGasCost"]! / e.value["dataPoints"]!))
+              .toList(),
+          xValueMapper: (MapEntry<String, double> entry, _) => entry.key,
+          yValueMapper: (MapEntry<String, double> entry, _) => entry.value,
+          name: "Gas Cost",
+          markerSettings: const MarkerSettings(isVisible: true),
+        ),
+        LineSeries<MapEntry<String, double>, String>(
+          dataSource: trackingDataByDay.entries
+              .map((e) =>
+                  MapEntry(e.key, e.value["uptime"]! / e.value["dataPoints"]!))
+              .toList(),
+          xValueMapper: (MapEntry<String, double> entry, _) => entry.key,
+          yValueMapper: (MapEntry<String, double> entry, _) => entry.value,
+          name: "Uptime",
+          markerSettings: const MarkerSettings(isVisible: true),
+        ),
+      ];
+    }
+
+    Widget lineChart(BuildContext context) {
+      return SfCartesianChart(
+        title: ChartTitle(text: 'Tracking Data Chart'),
+        series: generateLineSeries(),
+        legend: Legend(isVisible: true, position: LegendPosition.bottom),
+        primaryXAxis: CategoryAxis(title: AxisTitle(text: 'Date')),
+        primaryYAxis: NumericAxis(title: AxisTitle(text: 'Value')),
       );
-      return lineChart;
     }
 
     if (isLoading) {
@@ -81,20 +89,20 @@ class TrackingDataView extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: mediaSize.height * 0.3,
+          height: mediaSize.height * 0.5,
           width: mediaSize.width,
           child: Card(
             color: Colors.white,
-            child: chartToRun(),
+            child: lineChart(context),
           ),
         ),
         SizedBox(
-          height: mediaSize.height * 0.55,
+          height: mediaSize.height * 0.39,
           child: ListView.builder(
             itemCount: trackingData.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: mediaSize.height * 0.15,
+                height: mediaSize.height * 0.2, 
                 child: Card(
                   child: ListTile(
                       title: Text(
@@ -110,6 +118,8 @@ class TrackingDataView extends StatelessWidget {
                               "Daily avg expected profit: ${double.parse(trackingData[index].dailyExpectedAvgProfit).toStringAsFixed(2)} jewel"),
                           Text(
                               "Daily avg real profit: ${double.parse(trackingData[index].dailyRealAvgProfit).toStringAsFixed(2)} jewel"),
+                          Text(
+                              "Current gas price: ${double.parse(trackingData[index].averageGasPrice).toStringAsFixed(2)} gwei"),
                           Text(
                               "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
                         ],

@@ -72,7 +72,7 @@ class LastPayoutsView extends StatelessWidget {
             itemCount: lastPayouts.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: mediaSize.height * 0.13,
+                height: mediaSize.height * 0.18,
                 child: Card(
                   child: ListTile(
                       title: Text("Address: ${lastPayouts[index].address}"),

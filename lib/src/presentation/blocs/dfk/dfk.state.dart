@@ -2,6 +2,7 @@ import 'package:app/src/data/models/account.model.dart';
 import 'package:app/src/data/models/hero_bought.model.dart';
 import 'package:app/src/data/models/payout.model.dart';
 import 'package:app/src/data/models/tracking_data.model.dart';
+import 'package:app/src/data/models/trade.model.dart';
 import 'package:equatable/equatable.dart';
 
 class DfkState extends Equatable {
@@ -10,6 +11,7 @@ class DfkState extends Equatable {
     required this.lastPayouts,
     required this.trackingData,
     required this.accounts,
+    required this.trades,
     required this.isLoading,
   });
 
@@ -17,6 +19,7 @@ class DfkState extends Equatable {
   final List<PayoutModel> lastPayouts;
   final List<TrackingDataModel> trackingData;
   final List<AccountModel> accounts;
+  final List<TradeModel> trades;
   final bool isLoading;
 
   const DfkState.initial({
@@ -24,6 +27,7 @@ class DfkState extends Equatable {
     this.lastPayouts = const [],
     this.trackingData = const [],
     this.accounts = const [],
+    this.trades = const [],
     this.isLoading = false,
   }) : super();
 
@@ -32,6 +36,7 @@ class DfkState extends Equatable {
     List<PayoutModel>? lastPayouts,
     List<TrackingDataModel>? trackingData,
     List<AccountModel>? accounts,
+    List<TradeModel>? trades,
     bool? isLoading,
   }) {
     return DfkState(
@@ -39,6 +44,7 @@ class DfkState extends Equatable {
       lastPayouts: lastPayouts ?? this.lastPayouts,
       trackingData: trackingData ?? this.trackingData,
       accounts: accounts ?? this.accounts,
+      trades: trades ?? this.trades,
       isLoading: isLoading ?? this.isLoading,
     );
   }
@@ -49,6 +55,7 @@ class DfkState extends Equatable {
         lastPayouts,
         trackingData,
         accounts,
+        trades,
         isLoading,
       ];
 }

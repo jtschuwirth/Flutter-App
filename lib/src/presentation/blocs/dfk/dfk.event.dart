@@ -20,3 +20,7 @@ class DfkGetAccounts extends DfkEvent {
     required this.managerAddress,
   });
 }
+
+class DfkGetTrades extends DfkEvent {
+  const DfkGetTrades();
+}

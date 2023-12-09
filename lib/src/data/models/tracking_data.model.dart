@@ -4,6 +4,7 @@ class TrackingDataModel {
   String dailyAvgGasCost;
   String dailyExpectedAvgProfit;
   String dailyRealAvgProfit;
+  String averageGasPrice;
   String uptime;
 
   TrackingDataModel({
@@ -12,6 +13,7 @@ class TrackingDataModel {
     required this.dailyAvgGasCost,
     required this.dailyExpectedAvgProfit,
     required this.dailyRealAvgProfit,
+    required this.averageGasPrice,
     required this.uptime,
   });
 
@@ -22,6 +24,7 @@ class TrackingDataModel {
       dailyAvgGasCost: json['daily_avg_gas_cost'] ?? "0.0",
       dailyExpectedAvgProfit: json['daily_expected_avg_profit'] ?? "0.0",
       dailyRealAvgProfit: json['daily_real_avg_profit'] ?? "0.0",
+      averageGasPrice: json['avg_gas_price'] ?? "0.0",
       uptime: json['uptime'] ?? "0.0",
     );
   }

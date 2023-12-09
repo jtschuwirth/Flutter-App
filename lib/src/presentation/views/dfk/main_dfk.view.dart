@@ -5,11 +5,13 @@ class MainDfkView extends StatelessWidget {
   final void Function(BuildContext context) onGoToPayouts;
   final void Function(BuildContext context) onGoToTrackingData;
   final void Function(BuildContext context) onGoToAccounts;
+  final void Function(BuildContext context) onGoToTrades;
   const MainDfkView({
     required this.onGoToBoughtHeroes,
     required this.onGoToPayouts,
     required this.onGoToTrackingData,
     required this.onGoToAccounts,
+    required this.onGoToTrades,
     super.key,
   }) : super();
 
@@ -52,6 +54,12 @@ class MainDfkView extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () => onGoToAccounts(context),
             child: const Text("Accounts"),
+          ),
+        ),
+        Center(
+          child: ElevatedButton(
+            onPressed: () => onGoToTrades(context),
+            child: const Text("Trades"),
           ),
         ),
       ],

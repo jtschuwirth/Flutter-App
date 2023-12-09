@@ -2,6 +2,7 @@ import 'package:app/src/data/models/account.model.dart';
 import 'package:app/src/data/models/hero_bought.model.dart';
 import 'package:app/src/data/models/payout.model.dart';
 import 'package:app/src/data/models/tracking_data.model.dart';
+import 'package:app/src/data/models/trade.model.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.event.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     on<DfkGetLastPayouts>(_onGetLastPayouts);
     on<DfkGetTrackingData>(_onGetTrackingData);
     on<DfkGetAccounts>(_onGetAccounts);
+    on<DfkGetTrades>(_onGetTrades);
   }
 
   Future<void> _onGetAccounts(
@@ -124,6 +126,35 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
         );
       } else {
         throw Exception('Failed to load heroes bought');
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    emit(state.copyWith(isLoading: false));
+  }
+
+  Future<void> _onGetTrades(
+    DfkGetTrades event,
+    Emitter<DfkState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      final response = await http
+          .get(Uri.parse('${dotenv.env["ENDPOINT"]}/dfk/trader/trades'));
+
+      if (response.statusCode == 200) {
+        List<TradeModel> trades = [];
+        for (final entry in jsonDecode(response.body)) {
+          trades.add(TradeModel.fromJson(entry));
+        }
+        emit(
+          state.copyWith(
+            trades: trades,
+          ),
+        );
+      } else {
+        throw Exception('Failed to load trades');
       }
     } catch (e) {
       print(e);
