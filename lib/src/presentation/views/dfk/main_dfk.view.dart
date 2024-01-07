@@ -17,7 +17,6 @@ class MainDfkView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size mediaSize = MediaQuery.of(context).size;
     return Column(
       children: [
         const SizedBox(

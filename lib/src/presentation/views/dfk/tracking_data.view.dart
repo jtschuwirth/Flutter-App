@@ -1,9 +1,7 @@
 import 'package:app/src/data/models/tracking_data.model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_charts/flutter_charts.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class TrackingDataView extends StatelessWidget {
   final List<TrackingDataModel> trackingData;
@@ -102,7 +100,7 @@ class TrackingDataView extends StatelessWidget {
             itemCount: trackingData.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: mediaSize.height * 0.2, 
+                height: mediaSize.height * 0.2,
                 child: Card(
                   child: ListTile(
                       title: Text(

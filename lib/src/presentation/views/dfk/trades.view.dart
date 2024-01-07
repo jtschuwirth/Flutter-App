@@ -53,7 +53,7 @@ class TradesView extends StatelessWidget {
             itemCount: trades.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: mediaSize.height * 0.18,
+                height: mediaSize.height * 0.19,
                 child: Card(
                   child: ListTile(
                       title: Text(
@@ -65,7 +65,8 @@ class TradesView extends StatelessWidget {
                           Text("amount: ${trades[index].amount}"),
                           Text(
                               "real_profit: ${double.parse(trades[index].realProfit).toStringAsFixed(2)} jewel"),
-                          Text("Strategy: ${trades[index].strategy}")
+                          Text("Strategy: ${trades[index].strategy}"),
+                          Text("Model: ${trades[index].model}")
                         ],
                       )),
                 ),

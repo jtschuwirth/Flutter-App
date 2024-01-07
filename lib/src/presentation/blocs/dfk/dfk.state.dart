@@ -12,6 +12,7 @@ class DfkState extends Equatable {
     required this.trackingData,
     required this.accounts,
     required this.trades,
+    required this.targetAccounts,
     required this.isLoading,
   });
 
@@ -20,6 +21,7 @@ class DfkState extends Equatable {
   final List<TrackingDataModel> trackingData;
   final List<AccountModel> accounts;
   final List<TradeModel> trades;
+  final int targetAccounts;
   final bool isLoading;
 
   const DfkState.initial({
@@ -28,6 +30,7 @@ class DfkState extends Equatable {
     this.trackingData = const [],
     this.accounts = const [],
     this.trades = const [],
+    this.targetAccounts = 0,
     this.isLoading = false,
   }) : super();
 
@@ -37,6 +40,7 @@ class DfkState extends Equatable {
     List<TrackingDataModel>? trackingData,
     List<AccountModel>? accounts,
     List<TradeModel>? trades,
+    int? targetAccounts,
     bool? isLoading,
   }) {
     return DfkState(
@@ -45,6 +49,7 @@ class DfkState extends Equatable {
       trackingData: trackingData ?? this.trackingData,
       accounts: accounts ?? this.accounts,
       trades: trades ?? this.trades,
+      targetAccounts: targetAccounts ?? this.targetAccounts,
       isLoading: isLoading ?? this.isLoading,
     );
   }
@@ -56,6 +61,7 @@ class DfkState extends Equatable {
         trackingData,
         accounts,
         trades,
+        targetAccounts,
         isLoading,
       ];
 }

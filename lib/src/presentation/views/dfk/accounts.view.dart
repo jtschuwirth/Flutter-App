@@ -2,10 +2,12 @@ import 'package:app/src/data/models/account.model.dart';
 import 'package:flutter/material.dart';
 
 class AccountsView extends StatelessWidget {
+  final int targetAccounts;
   final List<AccountModel> accounts;
   final bool isLoading;
 
   const AccountsView({
+    required this.targetAccounts,
     required this.accounts,
     required this.isLoading,
     super.key,
@@ -35,7 +37,7 @@ class AccountsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Accounts: ${accounts.length}"),
+                Text("Accounts: ${accounts.length}, Target: $targetAccounts"),
                 const SizedBox(height: 5),
               ],
             )),

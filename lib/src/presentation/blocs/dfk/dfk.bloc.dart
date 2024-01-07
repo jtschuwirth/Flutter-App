@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:math';
 
 class DfkBloc extends Bloc<DfkEvent, DfkState> {
   DfkBloc() : super(const DfkState.initial()) {
@@ -18,6 +17,30 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     on<DfkGetTrackingData>(_onGetTrackingData);
     on<DfkGetAccounts>(_onGetAccounts);
     on<DfkGetTrades>(_onGetTrades);
+    on<DfkGetTargetAccounts>(_onGetTargetAccounts);
+  }
+
+  Future<void> _onGetTargetAccounts(
+    DfkGetTargetAccounts event,
+    Emitter<DfkState> emit,
+  ) async {
+    try {
+      final response = await http.get(Uri.parse(
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${event.managerAddress}'));
+      if (response.statusCode == 200) {
+        int targetAccounts = int.parse(response.body);
+
+        emit(
+          state.copyWith(
+            targetAccounts: targetAccounts,
+          ),
+        );
+      } else {
+        throw Exception('Failed to get target accounts');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> _onGetAccounts(
@@ -83,8 +106,8 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
   ) async {
     emit(state.copyWith(isLoading: true));
     try {
-      final response = await http
-          .get(Uri.parse('${dotenv.env["ENDPOINT"]}/dfk/seller/last_payouts'));
+      final response = await http.get(Uri.parse(
+          '${dotenv.env["ENDPOINT"]}/dfk/seller/last_payouts/${event.managerAddress}'));
       if (response.statusCode == 200) {
         List<PayoutModel> lastPayouts = [];
         for (final entry in jsonDecode(response.body)) {

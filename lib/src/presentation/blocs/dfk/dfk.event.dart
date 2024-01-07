@@ -7,7 +7,10 @@ class DfkGetHeroesBought extends DfkEvent {
 }
 
 class DfkGetLastPayouts extends DfkEvent {
-  const DfkGetLastPayouts();
+  final String managerAddress;
+  const DfkGetLastPayouts({
+    required this.managerAddress,
+  });
 }
 
 class DfkGetTrackingData extends DfkEvent {
@@ -23,4 +26,11 @@ class DfkGetAccounts extends DfkEvent {
 
 class DfkGetTrades extends DfkEvent {
   const DfkGetTrades();
+}
+
+class DfkGetTargetAccounts extends DfkEvent {
+  final String managerAddress;
+  const DfkGetTargetAccounts({
+    required this.managerAddress,
+  });
 }
