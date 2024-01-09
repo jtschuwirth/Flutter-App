@@ -8,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class BoughtHeroesViewModel extends StatefulWidget {
-  const BoughtHeroesViewModel({super.key});
+  final String profession;
+  const BoughtHeroesViewModel({super.key, required this.profession});
 
   @override
   State<BoughtHeroesViewModel> createState() => BoughtHeroesViewModelState();
@@ -17,7 +18,8 @@ class BoughtHeroesViewModel extends StatefulWidget {
 class BoughtHeroesViewModelState extends State<BoughtHeroesViewModel> {
   @override
   void initState() {
-    BlocProvider.of<DfkBloc>(context).add(const DfkGetHeroesBought());
+    BlocProvider.of<DfkBloc>(context)
+        .add(DfkGetHeroesBought(profession: widget.profession));
     super.initState();
   }
 

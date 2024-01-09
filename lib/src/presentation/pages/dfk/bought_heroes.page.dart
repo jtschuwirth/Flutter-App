@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class BoughtHeroesPage extends StatelessWidget {
   static String pathName = '/dfk/bought_heroes';
-  const BoughtHeroesPage({super.key}) : super();
+  final String profession;
+
+  const BoughtHeroesPage({super.key, required this.profession}) : super();
 
   @override
   Widget build(BuildContext context) {
-    return const BoughtHeroesViewModel();
+    return BoughtHeroesViewModel(profession: profession);
   }
 }

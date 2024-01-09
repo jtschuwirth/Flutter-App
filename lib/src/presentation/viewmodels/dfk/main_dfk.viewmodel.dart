@@ -18,8 +18,8 @@ class MainDfkViewModel extends StatefulWidget {
 }
 
 class MainDfkViewModelState extends State<MainDfkViewModel> {
-  void _onGoToBoughtHeroes(context) {
-    GoRouter.of(context).push(BoughtHeroesPage.pathName);
+  void _onGoToBoughtHeroes(context, profession) {
+    GoRouter.of(context).push(BoughtHeroesPage.pathName, extra: profession);
   }
 
   void _onGoToPayouts(context) {

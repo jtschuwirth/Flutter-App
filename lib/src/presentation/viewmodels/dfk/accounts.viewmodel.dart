@@ -37,7 +37,8 @@ class AccountsViewModelState extends State<AccountsViewModel> {
       body: BlocBuilder<DfkBloc, DfkState>(
         builder: (context, state) {
           return AccountsView(
-            targetAccounts: state.targetAccounts,
+            targetAccountsMining: state.targetAccountsMining,
+            targetAccountsGardening: state.targetAccountsGardening,
             accounts: state.accounts,
             isLoading: state.isLoading,
           );

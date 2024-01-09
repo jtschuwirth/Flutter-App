@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MainDfkView extends StatelessWidget {
-  final void Function(BuildContext context) onGoToBoughtHeroes;
+  final void Function(BuildContext context, String profession)
+      onGoToBoughtHeroes;
   final void Function(BuildContext context) onGoToPayouts;
   final void Function(BuildContext context) onGoToTrackingData;
   final void Function(BuildContext context) onGoToAccounts;
@@ -24,8 +25,17 @@ class MainDfkView extends StatelessWidget {
         ),
         Center(
           child: ElevatedButton(
-            onPressed: () => onGoToBoughtHeroes(context),
-            child: const Text("Bought Heroes"),
+            onPressed: () => onGoToBoughtHeroes(context, "mining"),
+            child: const Text("Bought Heroes Mining"),
+          ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Center(
+          child: ElevatedButton(
+            onPressed: () => onGoToBoughtHeroes(context, "gardening"),
+            child: const Text("Bought Heroes Gardening"),
           ),
         ),
         const SizedBox(

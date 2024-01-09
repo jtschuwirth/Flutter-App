@@ -41,7 +41,8 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/dfk/bought_heroes',
       builder: (BuildContext context, GoRouterState state) {
-        return const BoughtHeroesPage();
+        String profession = state.extra as String;
+        return BoughtHeroesPage(profession: profession);
       },
     ),
     GoRoute(

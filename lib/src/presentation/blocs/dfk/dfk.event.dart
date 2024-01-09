@@ -3,7 +3,8 @@ abstract class DfkEvent {
 }
 
 class DfkGetHeroesBought extends DfkEvent {
-  const DfkGetHeroesBought();
+  final String profession;
+  const DfkGetHeroesBought({required this.profession});
 }
 
 class DfkGetLastPayouts extends DfkEvent {

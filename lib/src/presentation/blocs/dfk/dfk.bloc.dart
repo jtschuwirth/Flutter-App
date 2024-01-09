@@ -24,15 +24,30 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     DfkGetTargetAccounts event,
     Emitter<DfkState> emit,
   ) async {
+    var response;
     try {
-      final response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${event.managerAddress}'));
+      response = await http.get(Uri.parse(
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${event.managerAddress}/mining'));
       if (response.statusCode == 200) {
-        int targetAccounts = int.parse(response.body);
+        int targetAccountsMining = int.parse(response.body);
 
         emit(
           state.copyWith(
-            targetAccounts: targetAccounts,
+            targetAccountsMining: targetAccountsMining,
+          ),
+        );
+      } else {
+        throw Exception('Failed to get target accounts');
+      }
+
+      response = await http.get(Uri.parse(
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${event.managerAddress}/gardening'));
+      if (response.statusCode == 200) {
+        int targetAccountsGardening = int.parse(response.body);
+
+        emit(
+          state.copyWith(
+            targetAccountsGardening: targetAccountsGardening,
           ),
         );
       } else {
@@ -134,8 +149,8 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
   ) async {
     emit(state.copyWith(isLoading: true));
     try {
-      final response = await http
-          .get(Uri.parse('${dotenv.env["ENDPOINT"]}/dfk/buyer/heroes_bought'));
+      final response = await http.get(Uri.parse(
+          '${dotenv.env["ENDPOINT"]}/dfk/buyer/heroes_bought/${event.profession}'));
 
       if (response.statusCode == 200) {
         List<HeroBoughtModel> heroesBought = [];
