@@ -8,14 +8,16 @@ class BoughtHeroesView extends StatelessWidget {
   final List<HeroBoughtModel> heroesBoughtToday;
   final Map<String, List<HeroBoughtModel>> heroesBoughtByDay;
   final bool isLoading;
-  final int totalHeroesBoughtTwoWeeks;
+  final int totalHeroesBoughtLastWeek;
+  final double averagePriceLastWeek;
 
   const BoughtHeroesView({
     required this.heroesBought,
     required this.heroesBoughtToday,
     required this.heroesBoughtByDay,
     required this.isLoading,
-    required this.totalHeroesBoughtTwoWeeks,
+    required this.totalHeroesBoughtLastWeek,
+    required this.averagePriceLastWeek,
     super.key,
   }) : super();
 
@@ -73,10 +75,10 @@ class BoughtHeroesView extends StatelessWidget {
                 Text("Total Heroes Bought: ${heroesBought.length}"),
                 Text("Heroes Bought Today: ${heroesBoughtToday.length}"),
                 Text(
-                    "Avg Heroes Bought per day: ${(totalHeroesBoughtTwoWeeks / heroesBoughtByDay.keys.length).toStringAsFixed(2)}"),
+                    "Avg Heroes Bought per day in the last week: ${(totalHeroesBoughtLastWeek / heroesBoughtByDay.keys.length).toStringAsFixed(2)}"),
                 const SizedBox(height: 10),
                 Text(
-                    "Avg Hero Bought Price: ${(heroesBought.fold<double>(0, (previousValue, element) => previousValue + double.parse(element.price)) / heroesBought.length).toStringAsFixed(2)}"),
+                    "Avg Hero Bought Price in the last week: ${averagePriceLastWeek.toStringAsFixed(2)}"),
                 Text(
                     "Avg Hero Bought Today Price: ${(heroesBoughtToday.fold<double>(0, (previousValue, element) => previousValue + double.parse(element.price)) / heroesBoughtToday.length).toStringAsFixed(2)}")
               ],

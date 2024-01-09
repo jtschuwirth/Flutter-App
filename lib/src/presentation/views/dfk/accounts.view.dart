@@ -40,7 +40,10 @@ class AccountsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    "Accounts: ${accounts.length}, Target Mining: $targetAccountsMining, Target Gardening: $targetAccountsGardening"),
+                    "Accounts Mining: ${accounts.where((element) => element.profession == 'mining').length} Target Mining: $targetAccountsMining"),
+                const SizedBox(height: 5),
+                Text(
+                    "Accounts Gardening: ${accounts.where((element) => element.profession == 'gardening').length}, Target Gardening: $targetAccountsGardening"),
                 const SizedBox(height: 5),
               ],
             )),
@@ -60,6 +63,7 @@ class AccountsView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text("Manager: ${accounts[index].manager} "),
+                          Text("Profession: ${accounts[index].profession} "),
                           Text("Enabled: ${accounts[index].enabled} "),
                         ],
                       )),

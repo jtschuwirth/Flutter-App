@@ -38,18 +38,18 @@ class BoughtHeroesViewModelState extends State<BoughtHeroesViewModel> {
               state.heroesBought.where((element) => true).toList();
           sortedHeroesBought.sort((a, b) => a.time.compareTo(b.time));
 
-          int totalHeroesBoughtTwoWeeks = 0;
-          final List<HeroBoughtModel> twoWeekData = state.heroesBought
+          int totalHeroesBoughtLastWeek = 0;
+          final List<HeroBoughtModel> lastWeekData = state.heroesBought
               .where((element) =>
                   DateTime.fromMillisecondsSinceEpoch(
                           int.parse(element.time) * 1000)
                       .compareTo(
-                          DateTime.now().subtract(const Duration(days: 14))) >=
+                          DateTime.now().subtract(const Duration(days: 7))) >=
                   0)
               .toList();
 
           final Map<String, List<HeroBoughtModel>> heroesBoughtByDay = {};
-          for (final heroBought in twoWeekData) {
+          for (final heroBought in lastWeekData) {
             final String day = DateFormat("dd/MM").format(
                 DateTime.fromMillisecondsSinceEpoch(
                     int.parse(heroBought.time) * 1000));
@@ -58,7 +58,7 @@ class BoughtHeroesViewModelState extends State<BoughtHeroesViewModel> {
             } else {
               heroesBoughtByDay[day] = [heroBought];
             }
-            totalHeroesBoughtTwoWeeks++;
+            totalHeroesBoughtLastWeek++;
           }
 
           return BoughtHeroesView(
@@ -67,7 +67,13 @@ class BoughtHeroesViewModelState extends State<BoughtHeroesViewModel> {
                 heroesBoughtByDay[DateFormat("dd/MM").format(DateTime.now())] ??
                     [],
             heroesBoughtByDay: heroesBoughtByDay,
-            totalHeroesBoughtTwoWeeks: totalHeroesBoughtTwoWeeks,
+            totalHeroesBoughtLastWeek: totalHeroesBoughtLastWeek,
+            averagePriceLastWeek: lastWeekData.isEmpty
+                ? 0
+                : lastWeekData
+                        .map((e) => double.parse(e.price))
+                        .reduce((value, element) => value + element) /
+                    lastWeekData.length,
             isLoading: state.isLoading,
           );
         },
