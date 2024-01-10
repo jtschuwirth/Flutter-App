@@ -4,10 +4,16 @@ import 'package:intl/intl.dart';
 
 class TradesView extends StatelessWidget {
   final List<TradeModel> trades;
+  final double dailyAvgProfit;
+  final double totalProfit;
+  final double lastDayProfit;
   final bool isLoading;
 
   const TradesView({
     required this.trades,
+    required this.totalProfit,
+    required this.lastDayProfit,
+    required this.dailyAvgProfit,
     required this.isLoading,
     super.key,
   }) : super();
@@ -15,21 +21,7 @@ class TradesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size mediaSize = MediaQuery.of(context).size;
-    final double totalProfit = trades.fold<double>(
-        0,
-        (previousValue, element) =>
-            previousValue + double.parse(element.realProfit));
 
-    if (isLoading) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-    if (trades.isEmpty) {
-      return const Center(
-        child: Text("No Trades"),
-      );
-    }
     return Column(
       children: [
         SizedBox(
@@ -43,6 +35,10 @@ class TradesView extends StatelessWidget {
               children: [
                 Text("Total earnings: $totalProfit jewel"),
                 const SizedBox(height: 5),
+                Text("earnings last 24 hours: $lastDayProfit jewel"),
+                const SizedBox(height: 5),
+                Text("average earnings per day: $dailyAvgProfit jewel"),
+                const SizedBox(height: 5),
               ],
             )),
           ),
@@ -53,7 +49,7 @@ class TradesView extends StatelessWidget {
             itemCount: trades.length,
             itemBuilder: (context, index) {
               return SizedBox(
-                height: mediaSize.height * 0.19,
+                height: mediaSize.height * 0.22,
                 child: Card(
                   child: ListTile(
                       title: Text(
@@ -63,9 +59,10 @@ class TradesView extends StatelessWidget {
                         children: [
                           Text("item: ${trades[index].item}"),
                           Text("amount: ${trades[index].amount}"),
+                          Text("price: ${trades[index].price}"),
                           Text(
-                              "real_profit: ${double.parse(trades[index].realProfit).toStringAsFixed(2)} jewel"),
-                          Text("Strategy: ${trades[index].strategy}"),
+                              "expected_profit: ${trades[index].expectedProfit}"),
+                          Text("operation: ${trades[index].operation}"),
                           Text("Model: ${trades[index].model}")
                         ],
                       )),
