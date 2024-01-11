@@ -54,7 +54,8 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/dfk/tracking_data',
       builder: (BuildContext context, GoRouterState state) {
-        return const TrackingDataPage();
+        String profession = state.extra as String;
+        return TrackingDataPage(profession: profession);
       },
     ),
     GoRoute(

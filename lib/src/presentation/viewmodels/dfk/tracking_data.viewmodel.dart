@@ -8,7 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class TrackingDataViewModel extends StatefulWidget {
-  const TrackingDataViewModel({super.key});
+  final String profession;
+  const TrackingDataViewModel({
+    required this.profession,
+    super.key,
+  });
 
   @override
   State<TrackingDataViewModel> createState() => TrackingDataViewModelState();
@@ -48,15 +52,21 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
             if (trakingDataByDay.containsKey(day)) {
               trakingDataByDay[day]!["dailyRealAvgProfit"] =
                   trakingDataByDay[day]!["dailyRealAvgProfit"]! +
-                      double.parse(trackingData.dailyRealAvgProfit);
+                      double.parse(widget.profession == "mining"
+                          ? trackingData.dailyRealAvgMiningProfit
+                          : trackingData.dailyRealAvgGardeningProfit);
 
               trakingDataByDay[day]!["dailyExpectedAvgProfit"] =
                   trakingDataByDay[day]!["dailyExpectedAvgProfit"]! +
-                      double.parse(trackingData.dailyExpectedAvgProfit);
+                      double.parse(widget.profession == "mining"
+                          ? trackingData.dailyExpectedAvgMiningProfit
+                          : trackingData.dailyExpectedAvgGardeningProfit);
 
               trakingDataByDay[day]!["dailyAvgGasCost"] =
                   trakingDataByDay[day]!["dailyAvgGasCost"]! +
-                      double.parse(trackingData.dailyAvgGasCost);
+                      double.parse(widget.profession == "mining"
+                          ? trackingData.dailyAvgMiningGasCost
+                          : trackingData.dailyAvgGardeningGasCost);
 
               trakingDataByDay[day]!["uptime"] =
                   trakingDataByDay[day]!["uptime"]! +
@@ -66,11 +76,16 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
                   trakingDataByDay[day]!["dataPoints"]! + 1;
             } else {
               trakingDataByDay[day] = {
-                "dailyRealAvgProfit":
-                    double.parse(trackingData.dailyRealAvgProfit),
-                "dailyExpectedAvgProfit":
-                    double.parse(trackingData.dailyExpectedAvgProfit),
-                "dailyAvgGasCost": double.parse(trackingData.dailyAvgGasCost),
+                "dailyRealAvgProfit": double.parse(widget.profession == "mining"
+                    ? trackingData.dailyRealAvgMiningProfit
+                    : trackingData.dailyRealAvgGardeningProfit),
+                "dailyExpectedAvgProfit": double.parse(
+                    widget.profession == "mining"
+                        ? trackingData.dailyExpectedAvgMiningProfit
+                        : trackingData.dailyExpectedAvgGardeningProfit),
+                "dailyAvgGasCost": double.parse(widget.profession == "mining"
+                    ? trackingData.dailyAvgMiningGasCost
+                    : trackingData.dailyAvgGardeningGasCost),
                 "uptime": double.parse(trackingData.uptime),
                 "dataPoints": 1
               };
@@ -80,9 +95,11 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
           List<TrackingDataModel> sortedData =
               state.trackingData.where((element) => true).toList();
           sortedData.sort((a, b) => a.time.compareTo(b.time));
+
           return TrackingDataView(
             trackingData: sortedData.reversed.toList(),
             trackingDataByDay: trakingDataByDay,
+            profession: widget.profession,
             isLoading: state.isLoading,
           );
         },

@@ -6,11 +6,13 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class TrackingDataView extends StatelessWidget {
   final List<TrackingDataModel> trackingData;
   final Map<String, Map<String, double>> trackingDataByDay;
+  final String profession;
   final bool isLoading;
 
   const TrackingDataView({
     required this.trackingData,
     required this.trackingDataByDay,
+    required this.profession,
     required this.isLoading,
     super.key,
   }) : super();
@@ -105,23 +107,41 @@ class TrackingDataView extends StatelessWidget {
                   child: ListTile(
                       title: Text(
                           "date: ${DateFormat("dd/MM/yyyy HH:mm").format(DateTime.fromMillisecondsSinceEpoch(int.parse(trackingData[index].time) * 1000))}"),
-                      subtitle: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                              "Daily avg earnings: ${double.parse(trackingData[index].dailyAvgEarning).toStringAsFixed(2)} jewel"),
-                          Text(
-                              "Daily avg gas cost: ${double.parse(trackingData[index].dailyAvgGasCost).toStringAsFixed(2)} jewel"),
-                          Text(
-                              "Daily avg expected profit: ${double.parse(trackingData[index].dailyExpectedAvgProfit).toStringAsFixed(2)} jewel"),
-                          Text(
-                              "Daily avg real profit: ${double.parse(trackingData[index].dailyRealAvgProfit).toStringAsFixed(2)} jewel"),
-                          Text(
-                              "Current gas price: ${double.parse(trackingData[index].averageGasPrice).toStringAsFixed(2)} gwei"),
-                          Text(
-                              "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
-                        ],
-                      )),
+                      subtitle: profession == "mining"
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "Daily avg earnings: ${double.parse(trackingData[index].dailyAvgMiningEarning).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Daily avg gas cost: ${double.parse(trackingData[index].dailyAvgMiningGasCost).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Daily avg expected profit: ${double.parse(trackingData[index].dailyExpectedAvgMiningProfit).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Daily avg real profit: ${double.parse(trackingData[index].dailyRealAvgMiningProfit).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Current gas price: ${double.parse(trackingData[index].averageMiningGasPrice).toStringAsFixed(2)} gwei"),
+                                Text(
+                                    "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
+                              ],
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "Daily avg earnings: ${double.parse(trackingData[index].dailyAvgGardeningEarning).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Daily avg gas cost: ${double.parse(trackingData[index].dailyAvgGardeningGasCost).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Daily avg expected profit: ${double.parse(trackingData[index].dailyExpectedAvgGardeningProfit).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Daily avg real profit: ${double.parse(trackingData[index].dailyRealAvgGardeningProfit).toStringAsFixed(2)} jewel"),
+                                Text(
+                                    "Current gas price: ${double.parse(trackingData[index].averageGardeningGasPrice).toStringAsFixed(2)} gwei"),
+                                Text(
+                                    "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
+                              ],
+                            )),
                 ),
               );
             },

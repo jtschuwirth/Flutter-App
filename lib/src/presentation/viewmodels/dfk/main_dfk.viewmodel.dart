@@ -26,8 +26,8 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
     GoRouter.of(context).push(LastPayoutsPage.pathName);
   }
 
-  void _onGoToTrackingData(context) {
-    GoRouter.of(context).push(TrackingDataPage.pathName);
+  void _onGoToTrackingData(context, profession) {
+    GoRouter.of(context).push(TrackingDataPage.pathName, extra: profession);
   }
 
   void _onGoToAccounts(context) {
