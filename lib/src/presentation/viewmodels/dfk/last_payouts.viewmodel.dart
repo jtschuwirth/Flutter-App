@@ -1,4 +1,3 @@
-import 'package:app/src/data/const/const.dart';
 import 'package:app/src/data/models/payout.model.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.bloc.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.event.dart';
@@ -17,8 +16,7 @@ class LastPayoutsViewModel extends StatefulWidget {
 class LastPayoutsViewModelState extends State<LastPayoutsViewModel> {
   @override
   void initState() {
-    BlocProvider.of<DfkBloc>(context)
-        .add(DfkGetLastPayouts(managerAddress: managerAddress));
+    BlocProvider.of<DfkBloc>(context).add(DfkGetLastPayouts());
     super.initState();
   }
 

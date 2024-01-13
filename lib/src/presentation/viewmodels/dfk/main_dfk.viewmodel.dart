@@ -1,4 +1,5 @@
 import 'package:app/src/presentation/blocs/dfk/dfk.bloc.dart';
+import 'package:app/src/presentation/blocs/dfk/dfk.event.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.state.dart';
 import 'package:app/src/presentation/pages/dfk/accounts.page.dart';
 import 'package:app/src/presentation/pages/dfk/bought_heroes.page.dart';
@@ -55,6 +56,14 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
             onGoToTrackingData: _onGoToTrackingData,
             onGoToAccounts: _onGoToAccounts,
             onGoToTrades: _onGoToTrades,
+            onChangeSelectedAddress: (selectedAddress) {
+              context.read<DfkBloc>().add(
+                    DfkChangeSelectedAddress(
+                      selectedAddress: selectedAddress,
+                    ),
+                  );
+            },
+            selectedAddress: state.selectedAddress,
           );
         },
       ),

@@ -1,4 +1,3 @@
-import 'package:app/src/data/const/const.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.bloc.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.event.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.state.dart';
@@ -16,12 +15,8 @@ class AccountsViewModel extends StatefulWidget {
 class AccountsViewModelState extends State<AccountsViewModel> {
   @override
   void initState() {
-    BlocProvider.of<DfkBloc>(context).add(DfkGetAccounts(
-      managerAddress: managerAddress,
-    ));
-    BlocProvider.of<DfkBloc>(context).add(DfkGetTargetAccounts(
-      managerAddress: managerAddress,
-    ));
+    BlocProvider.of<DfkBloc>(context).add(DfkGetAccounts());
+    BlocProvider.of<DfkBloc>(context).add(DfkGetTargetAccounts());
     super.initState();
   }
 

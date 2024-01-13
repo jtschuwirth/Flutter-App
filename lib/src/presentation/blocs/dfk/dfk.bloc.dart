@@ -18,6 +18,18 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     on<DfkGetAccounts>(_onGetAccounts);
     on<DfkGetTrades>(_onGetTrades);
     on<DfkGetTargetAccounts>(_onGetTargetAccounts);
+    on<DfkChangeSelectedAddress>(_onChangeSelectedAddress);
+  }
+
+  void _onChangeSelectedAddress(
+    DfkChangeSelectedAddress event,
+    Emitter<DfkState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        selectedAddress: event.selectedAddress,
+      ),
+    );
   }
 
   Future<void> _onGetTargetAccounts(
@@ -27,7 +39,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     var response;
     try {
       response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${event.managerAddress}/mining'));
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${state.selectedAddress}/mining'));
       if (response.statusCode == 200) {
         int targetAccountsMining = int.parse(response.body);
 
@@ -41,7 +53,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
       }
 
       response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${event.managerAddress}/gardening'));
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${state.selectedAddress}/gardening'));
       if (response.statusCode == 200) {
         int targetAccountsGardening = int.parse(response.body);
 
@@ -65,7 +77,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     emit(state.copyWith(isLoading: true));
     try {
       final response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/accounts/${event.managerAddress}'));
+          '${dotenv.env["ENDPOINT"]}/dfk/accounts/${state.selectedAddress}'));
       if (response.statusCode == 200) {
         List<AccountModel> accounts = [];
         for (final entry in jsonDecode(response.body)) {
@@ -122,7 +134,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     emit(state.copyWith(isLoading: true));
     try {
       final response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/seller/last_payouts/${event.managerAddress}'));
+          '${dotenv.env["ENDPOINT"]}/dfk/seller/last_payouts/${state.selectedAddress}'));
       if (response.statusCode == 200) {
         List<PayoutModel> lastPayouts = [];
         for (final entry in jsonDecode(response.body)) {
