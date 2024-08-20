@@ -1,6 +1,8 @@
 class TrackingDataModel {
   String time;
   String uptime;
+  String uptimeMining;
+  String uptimeGardening;
 
   String dailyAvgMiningEarning;
   String dailyAvgMiningGasCost;
@@ -17,6 +19,8 @@ class TrackingDataModel {
   TrackingDataModel({
     required this.time,
     required this.uptime,
+    required this.uptimeMining,
+    required this.uptimeGardening,
     required this.dailyAvgMiningEarning,
     required this.dailyAvgMiningGasCost,
     required this.dailyExpectedAvgMiningProfit,
@@ -33,6 +37,8 @@ class TrackingDataModel {
     return TrackingDataModel(
       time: json['time_'],
       uptime: json['uptime'] ?? "0.0",
+      uptimeMining: json['uptime_mining'] ?? "0.0",
+      uptimeGardening: json['uptime_gardening'] ?? "0.0",
       dailyAvgMiningEarning: json['daily_avg_mining_earnings'] ?? "0.0",
       dailyAvgMiningGasCost: json['daily_avg_mining_gas_cost'] ?? "0.0",
       dailyExpectedAvgMiningProfit:

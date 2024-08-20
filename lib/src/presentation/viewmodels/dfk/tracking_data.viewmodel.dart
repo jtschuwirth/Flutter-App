@@ -70,7 +70,9 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
 
               trakingDataByDay[day]!["uptime"] =
                   trakingDataByDay[day]!["uptime"]! +
-                      double.parse(trackingData.uptime);
+                      double.parse(widget.profession == "mining"
+                          ? trackingData.uptimeMining
+                          : trackingData.uptimeGardening);
 
               trakingDataByDay[day]!["dataPoints"] =
                   trakingDataByDay[day]!["dataPoints"]! + 1;
@@ -86,7 +88,9 @@ class TrackingDataViewModelState extends State<TrackingDataViewModel> {
                 "dailyAvgGasCost": double.parse(widget.profession == "mining"
                     ? trackingData.dailyAvgMiningGasCost
                     : trackingData.dailyAvgGardeningGasCost),
-                "uptime": double.parse(trackingData.uptime),
+                "uptime": double.parse(widget.profession == "mining"
+                    ? trackingData.uptimeMining
+                    : trackingData.uptimeGardening),
                 "dataPoints": 1
               };
             }

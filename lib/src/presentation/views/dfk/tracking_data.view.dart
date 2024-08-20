@@ -122,7 +122,7 @@ class TrackingDataView extends StatelessWidget {
                                 Text(
                                     "Current gas price: ${double.parse(trackingData[index].averageMiningGasPrice).toStringAsFixed(2)} gwei"),
                                 Text(
-                                    "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
+                                    "uptime: ${double.parse(trackingData[index].uptimeMining) * 100}%"),
                               ],
                             )
                           : Column(
@@ -139,7 +139,7 @@ class TrackingDataView extends StatelessWidget {
                                 Text(
                                     "Current gas price: ${double.parse(trackingData[index].averageGardeningGasPrice).toStringAsFixed(2)} gwei"),
                                 Text(
-                                    "uptime: ${double.parse(trackingData[index].uptime) * 100}%"),
+                                    "uptime: ${double.parse(trackingData[index].uptimeGardening) * 100}%"),
                               ],
                             )),
                 ),
