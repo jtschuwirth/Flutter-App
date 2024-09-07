@@ -11,6 +11,10 @@ class DfkGetLastPayouts extends DfkEvent {
   const DfkGetLastPayouts();
 }
 
+class DfkGetLastFees extends DfkEvent {
+  const DfkGetLastFees();
+}
+
 class DfkGetTrackingData extends DfkEvent {
   const DfkGetTrackingData();
 }

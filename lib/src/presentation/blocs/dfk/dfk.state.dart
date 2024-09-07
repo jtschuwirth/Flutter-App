@@ -9,6 +9,7 @@ class DfkState extends Equatable {
   const DfkState({
     required this.heroesBought,
     required this.lastPayouts,
+    required this.lastFees,
     required this.trackingData,
     required this.accounts,
     required this.trades,
@@ -20,6 +21,7 @@ class DfkState extends Equatable {
 
   final List<HeroBoughtModel> heroesBought;
   final List<PayoutModel> lastPayouts;
+  final List<PayoutModel> lastFees;
   final List<TrackingDataModel> trackingData;
   final List<AccountModel> accounts;
   final List<TradeModel> trades;
@@ -31,6 +33,7 @@ class DfkState extends Equatable {
   const DfkState.initial({
     this.heroesBought = const [],
     this.lastPayouts = const [],
+    this.lastFees = const [],
     this.trackingData = const [],
     this.accounts = const [],
     this.trades = const [],
@@ -43,6 +46,7 @@ class DfkState extends Equatable {
   DfkState copyWith({
     List<HeroBoughtModel>? heroesBought,
     List<PayoutModel>? lastPayouts,
+    List<PayoutModel>? lastFees,
     List<TrackingDataModel>? trackingData,
     List<AccountModel>? accounts,
     List<TradeModel>? trades,
@@ -54,6 +58,7 @@ class DfkState extends Equatable {
     return DfkState(
       heroesBought: heroesBought ?? this.heroesBought,
       lastPayouts: lastPayouts ?? this.lastPayouts,
+      lastFees: lastFees ?? this.lastFees,
       trackingData: trackingData ?? this.trackingData,
       accounts: accounts ?? this.accounts,
       trades: trades ?? this.trades,
@@ -69,6 +74,7 @@ class DfkState extends Equatable {
   List<Object> get props => [
         heroesBought,
         lastPayouts,
+        lastFees,
         trackingData,
         accounts,
         trades,

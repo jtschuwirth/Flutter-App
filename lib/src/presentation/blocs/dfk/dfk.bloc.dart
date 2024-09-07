@@ -14,6 +14,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
   DfkBloc() : super(const DfkState.initial()) {
     on<DfkGetHeroesBought>(_onGetHeroesBought);
     on<DfkGetLastPayouts>(_onGetLastPayouts);
+    on<DfkGetLastFees>(_onGetLastFees);
     on<DfkGetTrackingData>(_onGetTrackingData);
     on<DfkGetAccounts>(_onGetAccounts);
     on<DfkGetTrades>(_onGetTrades);
@@ -143,6 +144,34 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
         emit(
           state.copyWith(
             lastPayouts: lastPayouts,
+          ),
+        );
+      } else {
+        throw Exception('Failed to load last payouts');
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    emit(state.copyWith(isLoading: false));
+  }
+
+  Future<void> _onGetLastFees(
+    DfkGetLastFees event,
+    Emitter<DfkState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      final response = await http
+          .get(Uri.parse('${dotenv.env["ENDPOINT"]}/dfk/seller/last_fees'));
+      if (response.statusCode == 200) {
+        List<PayoutModel> lastFees = [];
+        for (final entry in jsonDecode(response.body)) {
+          lastFees.add(PayoutModel.fromJson(entry));
+        }
+        emit(
+          state.copyWith(
+            lastFees: lastFees,
           ),
         );
       } else {

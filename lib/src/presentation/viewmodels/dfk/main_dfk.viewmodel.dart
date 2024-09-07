@@ -3,6 +3,7 @@ import 'package:app/src/presentation/blocs/dfk/dfk.event.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.state.dart';
 import 'package:app/src/presentation/pages/dfk/accounts.page.dart';
 import 'package:app/src/presentation/pages/dfk/bought_heroes.page.dart';
+import 'package:app/src/presentation/pages/dfk/last_fees.page.dart';
 import 'package:app/src/presentation/pages/dfk/last_payouts.page.dart';
 import 'package:app/src/presentation/pages/dfk/tracking_data.page.dart';
 import 'package:app/src/presentation/pages/dfk/trades.page.dart';
@@ -39,6 +40,10 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
     GoRouter.of(context).push(TradesPage.pathName);
   }
 
+  void _onGoToFees(context) {
+    GoRouter.of(context).push(LastFeesPage.pathName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +58,7 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
           return MainDfkView(
             onGoToBoughtHeroes: _onGoToBoughtHeroes,
             onGoToPayouts: _onGoToPayouts,
+            onGoToFees: _onGoToFees,
             onGoToTrackingData: _onGoToTrackingData,
             onGoToAccounts: _onGoToAccounts,
             onGoToTrades: _onGoToTrades,

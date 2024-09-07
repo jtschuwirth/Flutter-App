@@ -2,6 +2,7 @@ import 'package:app/src/presentation/blocs/dfk/dfk.bloc.dart';
 import 'package:app/src/presentation/blocs/wnrs/wnrs.bloc.dart';
 import 'package:app/src/presentation/pages/dfk/accounts.page.dart';
 import 'package:app/src/presentation/pages/dfk/bought_heroes.page.dart';
+import 'package:app/src/presentation/pages/dfk/last_fees.page.dart';
 import 'package:app/src/presentation/pages/dfk/last_payouts.page.dart';
 import 'package:app/src/presentation/pages/dfk/main_dfk.page.dart';
 import 'package:app/src/presentation/pages/dfk/tracking_data.page.dart';
@@ -49,6 +50,12 @@ final GoRouter _router = GoRouter(
       path: '/dfk/last_payouts',
       builder: (BuildContext context, GoRouterState state) {
         return const LastPayoutsPage();
+      },
+    ),
+    GoRoute(
+      path: '/dfk/last_fees',
+      builder: (BuildContext context, GoRouterState state) {
+        return const LastFeesPage();
       },
     ),
     GoRoute(
