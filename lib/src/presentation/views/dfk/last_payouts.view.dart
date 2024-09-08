@@ -175,7 +175,7 @@ class LastPayoutsView extends StatelessWidget {
                           Text(
                               "date: ${DateFormat("dd/MM/yyyy HH:mm").format(DateTime.fromMillisecondsSinceEpoch(int.parse(lastPayouts[index].time) * 1000))}"),
                           Text(
-                              "time delta: ${(double.parse(lastPayouts[index].timeDelta) / (24 * 60 * 60)).toStringAsFixed(1)} days)"),
+                              "time delta: ${(double.parse(lastPayouts[index].timeDelta) / (24 * 60 * 60)).toStringAsFixed(1)} days"),
                           Text("Profession: ${lastPayouts[index].profession}"),
                         ],
                       )),

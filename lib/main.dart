@@ -24,7 +24,7 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const HomePage();
+        return const MainDfkPage();
       },
     ),
     GoRoute(

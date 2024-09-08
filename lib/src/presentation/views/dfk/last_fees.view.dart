@@ -127,7 +127,7 @@ class LastFeesView extends StatelessWidget {
                           Text(
                               "date: ${DateFormat("dd/MM/yyyy HH:mm").format(DateTime.fromMillisecondsSinceEpoch(int.parse(lastFees[index].time) * 1000))}"),
                           Text(
-                              "time delta: ${(double.parse(lastFees[index].timeDelta) / (24 * 60 * 60)).toStringAsFixed(1)} days)"),
+                              "time delta: ${(double.parse(lastFees[index].timeDelta) / (24 * 60 * 60)).toStringAsFixed(1)} days"),
                           Text("Profession: ${lastFees[index].profession}"),
                         ],
                       )),
