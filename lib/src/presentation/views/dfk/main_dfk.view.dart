@@ -25,6 +25,15 @@ class MainDfkView extends StatelessWidget {
     super.key,
   }) : super();
 
+  Widget button({required String text, required VoidCallback onPressed}) {
+    return SizedBox(
+        width: 250,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(text),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,75 +59,46 @@ class MainDfkView extends StatelessWidget {
             }).toList(),
           ),
         ),
-        const SizedBox(
-          height: 5,
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToBoughtHeroes(context, "mining"),
+          text: "Bought Heroes Mining",
         ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToBoughtHeroes(context, "mining"),
-            child: const Text("Bought Heroes Mining"),
-          ),
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToBoughtHeroes(context, "gardening"),
+          text: "Bought Heroes Gardening",
         ),
-        const SizedBox(
-          height: 5,
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToPayouts(context),
+          text: "Payouts",
         ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToBoughtHeroes(context, "gardening"),
-            child: const Text("Bought Heroes Gardening"),
-          ),
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToFees(context),
+          text: "Fees",
         ),
-        const SizedBox(
-          height: 5,
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToTrackingData(context, "mining"),
+          text: "Tracking Data Mining",
         ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToPayouts(context),
-            child: const Text("Payouts"),
-          ),
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToTrackingData(context, "gardening"),
+          text: "Tracking Data Gardening",
         ),
-        const SizedBox(
-          height: 5,
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToAccounts(context),
+          text: "Accounts",
         ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToFees(context),
-            child: const Text("Fees"),
-          ),
+        const SizedBox(height: 5),
+        button(
+          onPressed: () => onGoToTrades(context),
+          text: "Trades",
         ),
-        const SizedBox(
-          height: 5,
-        ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToTrackingData(context, "mining"),
-            child: const Text("Tracking Data Mining"),
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToTrackingData(context, "gardening"),
-            child: const Text("Tracking Data Gardening"),
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => onGoToAccounts(context),
-            child: const Text("Accounts"),
-          ),
-        ),
-        //Center(
-        //  child: ElevatedButton(
-        //    onPressed: () => onGoToTrades(context),
-        //    child: const Text("Trades"),
-        //  ),
-        //),
       ],
     );
   }
