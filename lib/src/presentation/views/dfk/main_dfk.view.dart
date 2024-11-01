@@ -10,7 +10,7 @@ class MainDfkView extends StatelessWidget {
       onGoToTrackingData;
   final void Function(BuildContext context) onGoToAccounts;
   final void Function(BuildContext context) onGoToTrades;
-  final void Function(String selectedAddress) onChangeSelectedAddress;
+  final void Function(String selectedAddress) onChangeSelectedUser;
   final String selectedAddress;
 
   const MainDfkView({
@@ -20,7 +20,7 @@ class MainDfkView extends StatelessWidget {
     required this.onGoToTrackingData,
     required this.onGoToAccounts,
     required this.onGoToTrades,
-    required this.onChangeSelectedAddress,
+    required this.onChangeSelectedUser,
     required this.selectedAddress,
     super.key,
   }) : super();
@@ -45,11 +45,11 @@ class MainDfkView extends StatelessWidget {
           child: DropdownButton<String>(
             value: selectedAddress,
             onChanged: (String? newValue) {},
-            items: <String>[...addresses]
+            items: <String>[...users]
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 onTap: () {
-                  onChangeSelectedAddress(value);
+                  onChangeSelectedUser(value);
                 },
                 value: value,
                 child: Text(value.substring(0, 4) +

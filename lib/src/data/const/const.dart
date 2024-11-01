@@ -1,4 +1,5 @@
-const addresses = [
-  "0xa691623968855b91A066661b0552a7D3764c9a64",
-  "0xcFD4f8d378854Ad24357801959CeA3A75E9B4010"
+const users = [
+  "auth0|67030c8285bebf97ea0b5c95",
+  "auth0|67132b814e8a8907fbf09727",
+  "auth0|670db09ff88b4e0162d823b1"
 ];

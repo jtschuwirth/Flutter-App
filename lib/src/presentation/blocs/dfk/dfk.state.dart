@@ -15,7 +15,7 @@ class DfkState extends Equatable {
     required this.trades,
     required this.targetAccountsMining,
     required this.targetAccountsGardening,
-    required this.selectedAddress,
+    required this.selectedUser,
     required this.isLoading,
   });
 
@@ -27,7 +27,7 @@ class DfkState extends Equatable {
   final List<TradeModel> trades;
   final int targetAccountsMining;
   final int targetAccountsGardening;
-  final String selectedAddress;
+  final String selectedUser;
   final bool isLoading;
 
   const DfkState.initial({
@@ -39,7 +39,7 @@ class DfkState extends Equatable {
     this.trades = const [],
     this.targetAccountsMining = 0,
     this.targetAccountsGardening = 0,
-    this.selectedAddress = "0xa691623968855b91A066661b0552a7D3764c9a64",
+    this.selectedUser = "auth0|67030c8285bebf97ea0b5c95",
     this.isLoading = false,
   }) : super();
 
@@ -52,7 +52,7 @@ class DfkState extends Equatable {
     List<TradeModel>? trades,
     int? targetAccountsMining,
     int? targetAccountsGardening,
-    String? selectedAddress,
+    String? selectedUser,
     bool? isLoading,
   }) {
     return DfkState(
@@ -65,7 +65,7 @@ class DfkState extends Equatable {
       targetAccountsMining: targetAccountsMining ?? this.targetAccountsMining,
       targetAccountsGardening:
           targetAccountsGardening ?? this.targetAccountsGardening,
-      selectedAddress: selectedAddress ?? this.selectedAddress,
+      selectedUser: selectedUser ?? this.selectedUser,
       isLoading: isLoading ?? this.isLoading,
     );
   }
@@ -80,7 +80,7 @@ class DfkState extends Equatable {
         trades,
         targetAccountsMining,
         targetAccountsGardening,
-        selectedAddress,
+        selectedUser,
         isLoading,
       ];
 }

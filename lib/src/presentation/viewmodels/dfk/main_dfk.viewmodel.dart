@@ -62,14 +62,14 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
             onGoToTrackingData: _onGoToTrackingData,
             onGoToAccounts: _onGoToAccounts,
             onGoToTrades: _onGoToTrades,
-            onChangeSelectedAddress: (selectedAddress) {
+            onChangeSelectedUser: (selectedUser) {
               context.read<DfkBloc>().add(
-                    DfkChangeSelectedAddress(
-                      selectedAddress: selectedAddress,
+                    DfkChangeSelectedUser(
+                      selectedUser: selectedUser,
                     ),
                   );
             },
-            selectedAddress: state.selectedAddress,
+            selectedAddress: state.selectedUser,
           );
         },
       ),

@@ -19,16 +19,16 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     on<DfkGetAccounts>(_onGetAccounts);
     on<DfkGetTrades>(_onGetTrades);
     on<DfkGetTargetAccounts>(_onGetTargetAccounts);
-    on<DfkChangeSelectedAddress>(_onChangeSelectedAddress);
+    on<DfkChangeSelectedUser>(_onChangeSelectedUser);
   }
 
-  void _onChangeSelectedAddress(
-    DfkChangeSelectedAddress event,
+  void _onChangeSelectedUser(
+    DfkChangeSelectedUser event,
     Emitter<DfkState> emit,
   ) {
     emit(
       state.copyWith(
-        selectedAddress: event.selectedAddress,
+        selectedUser: event.selectedUser,
       ),
     );
   }
@@ -40,7 +40,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     var response;
     try {
       response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${state.selectedAddress}/mining'));
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${state.selectedUser}/mining'));
       if (response.statusCode == 200) {
         int targetAccountsMining = int.parse(response.body);
 
@@ -54,7 +54,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
       }
 
       response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${state.selectedAddress}/gardening'));
+          '${dotenv.env["ENDPOINT"]}/dfk/target_accounts/${state.selectedUser}/gardening'));
       if (response.statusCode == 200) {
         int targetAccountsGardening = int.parse(response.body);
 
@@ -78,7 +78,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     emit(state.copyWith(isLoading: true));
     try {
       final response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/accounts/${state.selectedAddress}'));
+          '${dotenv.env["ENDPOINT"]}/dfk/accounts/${state.selectedUser}'));
       if (response.statusCode == 200) {
         List<AccountModel> accounts = [];
         for (final entry in jsonDecode(response.body)) {
@@ -135,7 +135,7 @@ class DfkBloc extends Bloc<DfkEvent, DfkState> {
     emit(state.copyWith(isLoading: true));
     try {
       final response = await http.get(Uri.parse(
-          '${dotenv.env["ENDPOINT"]}/dfk/seller/last_payouts/${state.selectedAddress}'));
+          '${dotenv.env["ENDPOINT"]}/dfk/seller/last_payouts/${state.selectedUser}'));
       if (response.statusCode == 200) {
         List<PayoutModel> lastPayouts = [];
         for (final entry in jsonDecode(response.body)) {

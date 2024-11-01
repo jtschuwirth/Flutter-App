@@ -31,9 +31,9 @@ class DfkGetTargetAccounts extends DfkEvent {
   const DfkGetTargetAccounts();
 }
 
-class DfkChangeSelectedAddress extends DfkEvent {
-  final String selectedAddress;
-  const DfkChangeSelectedAddress({
-    required this.selectedAddress,
+class DfkChangeSelectedUser extends DfkEvent {
+  final String selectedUser;
+  const DfkChangeSelectedUser({
+    required this.selectedUser,
   });
 }
