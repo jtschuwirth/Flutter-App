@@ -40,10 +40,10 @@ class AccountsView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    "Accounts Mining: ${accounts.where((element) => element.profession == 'mining').length} Target Mining: $targetAccountsMining"),
+                    "Accounts Mining: ${accounts.where((element) => element.profession == 'mining').length}"),
                 const SizedBox(height: 5),
                 Text(
-                    "Accounts Gardening: ${accounts.where((element) => element.profession == 'gardening').length}, Target Gardening: $targetAccountsGardening"),
+                    "Accounts Gardening: ${accounts.where((element) => element.profession == 'gardening').length}"),
                 const SizedBox(height: 5),
               ],
             )),

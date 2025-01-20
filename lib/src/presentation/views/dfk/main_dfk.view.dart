@@ -1,4 +1,4 @@
-import 'package:app/src/data/const/const.dart';
+import 'package:app/src/data/models/User.model.dart';
 import 'package:flutter/material.dart';
 
 class MainDfkView extends StatelessWidget {
@@ -11,6 +11,7 @@ class MainDfkView extends StatelessWidget {
   final void Function(BuildContext context) onGoToAccounts;
   final void Function(BuildContext context) onGoToTrades;
   final void Function(String selectedAddress) onChangeSelectedUser;
+  final List<User> enrolledUsers;
   final String selectedAddress;
 
   const MainDfkView({
@@ -22,6 +23,7 @@ class MainDfkView extends StatelessWidget {
     required this.onGoToTrades,
     required this.onChangeSelectedUser,
     required this.selectedAddress,
+    required this.enrolledUsers,
     super.key,
   }) : super();
 
@@ -40,21 +42,28 @@ class MainDfkView extends StatelessWidget {
       children: [
         const SizedBox(
           height: 20,
+          width: double.infinity,
         ),
         Center(
           child: DropdownButton<String>(
+            dropdownColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            isExpanded: true,
             value: selectedAddress,
             onChanged: (String? newValue) {},
-            items: <String>[...users]
-                .map<DropdownMenuItem<String>>((String value) {
+            items: <User>[...enrolledUsers]
+                .map<DropdownMenuItem<String>>((User value) {
               return DropdownMenuItem<String>(
                 onTap: () {
-                  onChangeSelectedUser(value);
+                  onChangeSelectedUser(value.userId);
                 },
-                value: value,
-                child: Text(value.substring(0, 4) +
+                value: value.userId,
+                child: Text(value.userId.substring(0, 4) +
                     "..." +
-                    value.substring(value.length - 4)),
+                    value.userId.substring(value.userId.length - 4) +
+                    ": " +
+                    value.accounts.toString() +
+                    " accounts"),
               );
             }).toList(),
           ),

@@ -23,6 +23,10 @@ class DfkGetAccounts extends DfkEvent {
   const DfkGetAccounts();
 }
 
+class DfkGetEnrolledUsers extends DfkEvent {
+  const DfkGetEnrolledUsers();
+}
+
 class DfkGetTrades extends DfkEvent {
   const DfkGetTrades();
 }

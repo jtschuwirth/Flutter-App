@@ -1,3 +1,4 @@
+import 'package:app/src/data/const/const.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.bloc.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.event.dart';
 import 'package:app/src/presentation/blocs/dfk/dfk.state.dart';
@@ -20,6 +21,12 @@ class MainDfkViewModel extends StatefulWidget {
 }
 
 class MainDfkViewModelState extends State<MainDfkViewModel> {
+  @override
+  void initState() {
+    //getEnrolledUsers();
+    super.initState();
+  }
+
   void _onGoToBoughtHeroes(context, profession) {
     GoRouter.of(context).push(BoughtHeroesPage.pathName, extra: profession);
   }
@@ -42,6 +49,10 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
 
   void _onGoToFees(context) {
     GoRouter.of(context).push(LastFeesPage.pathName);
+  }
+
+  void getEnrolledUsers() {
+    BlocProvider.of<DfkBloc>(context).add(DfkGetEnrolledUsers());
   }
 
   @override
@@ -69,6 +80,7 @@ class MainDfkViewModelState extends State<MainDfkViewModel> {
                     ),
                   );
             },
+            enrolledUsers: users,
             selectedAddress: state.selectedUser,
           );
         },

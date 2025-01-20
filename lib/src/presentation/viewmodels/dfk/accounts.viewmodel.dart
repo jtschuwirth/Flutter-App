@@ -16,7 +16,6 @@ class AccountsViewModelState extends State<AccountsViewModel> {
   @override
   void initState() {
     BlocProvider.of<DfkBloc>(context).add(DfkGetAccounts());
-    BlocProvider.of<DfkBloc>(context).add(DfkGetTargetAccounts());
     super.initState();
   }
 
